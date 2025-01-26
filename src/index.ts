@@ -1,20 +1,31 @@
-// import type { Core } from '@strapi/strapi';
+import express, { Request, Response } from 'express';
+import mysql from 'mysql2/promise';
 
-export default {
-  /**
-   * An asynchronous register function that runs before
-   * your application is initialized.
-   *
-   * This gives you an opportunity to extend code.
-   */
-  register(/* { strapi }: { strapi: Core.Strapi } */) {},
+const app = express();
+const port = process.env.PORT || 3000;
 
-  /**
-   * An asynchronous bootstrap function that runs before
-   * your application gets started.
-   *
-   * This gives you an opportunity to set up your data model,
-   * run jobs, or perform some special logic.
-   */
-  bootstrap(/* { strapi }: { strapi: Core.Strapi } */) {},
-};
+app.use(express.json());
+
+async function initializeDatabase() {
+  const connection = await mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'ghosttribes'
+  });
+  return connection;
+}
+
+initializeDatabase().then(connection => {
+  console.log('Database connected');
+}).catch(err => {
+  console.error('Database connection failed:', err);
+});
+
+app.get('/', (req: Request, res: Response) => {
+  res.send('Hello, ghost!');
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
