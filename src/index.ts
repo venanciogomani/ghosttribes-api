@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import corsMiddleware from './middleware/corsMiddleware';
 import mysql from 'mysql2/promise';
 import productsRoute from './routes/productsRoute';
 
@@ -6,6 +7,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(corsMiddleware());
 
 export async function initializeDatabase() {
   const pool = await mysql.createPool({

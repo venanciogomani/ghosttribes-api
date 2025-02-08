@@ -1,7 +1,7 @@
 import express from 'express';
 
 const allowedOrigins = [
-  'http://localhost:3000', // storefront endpoint
+  'http://localhost:5173', // storefront endpoint
   'http://localhost:3200' // cms endpoint
 ];
 
