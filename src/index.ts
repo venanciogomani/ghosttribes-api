@@ -29,8 +29,8 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello, ghost!');
+app.get('/api', (req: Request, res: Response) => {
+  res.send('Hello, ghost api!');
 });
 
-app.use('/products', productsRoute);
+app.use('/api/products', productsRoute);
